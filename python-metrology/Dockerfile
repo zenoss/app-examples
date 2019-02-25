@@ -9,8 +9,8 @@ RUN python3 -m venv /venv
 RUN apk add build-base libffi-dev
 
 # Install production requirements into /venv.
-ADD ./requirements /project/requirements
-RUN /venv/bin/pip install -r /project/requirements/production.txt
+ADD ./requirements.txt /project/requirements.txt
+RUN /venv/bin/pip install -r /project/requirements.txt
 
 # Install this project into /venv.
 ADD . /project
@@ -19,4 +19,4 @@ RUN /venv/bin/pip install /project
 # Copy virtual environment (venv) from build to production.
 FROM base as production
 COPY --from=build /venv /venv
-CMD ["/venv/bin/python3", "-m", "zenoss_example"]
+CMD ["/venv/bin/python3", "-m", "python_metrology"]

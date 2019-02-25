@@ -20,7 +20,7 @@ def join_tags(tags):
 # Define the key:value tags we want to send with all metrics.
 METRIC_TAGS = join_tags({
     "contextUUID": "example.python.metrology",
-    "meta_type": "com.zenoss.example.python.metrology",
+    "meta_type": "com.example.python.metrology",
     "name": "Python Metrology Example",
 })
 
@@ -58,3 +58,7 @@ def root():
     # Update a pre-registered metric.
     METRICS["root.requests"].increment()
     return "Hello! (python-metrology)"
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")

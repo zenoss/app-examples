@@ -1,29 +1,26 @@
 version: '3'
 services:
   gostatsd:
-    image: zenoss/gostatsd:latest
+    image: gcr.io/zing-registry-188222/zenoss/gostatsd:cd9241e9
     environment:
-      - GSD_VERBOSE=1
       - GSD_BACKENDS=zenoss
       - GSD_FLUSH_INTERVAL=10s
       - GSD_MAX_WORKERS=1
-      - GSD_DEFAULT_TAGS=tenant:cladhoc source-type:statsd source:cluther.damsel.gostatsd-01 plugin:com.atlassian.gostatsd
-      - GSD_INTERNAL_TAGS=contextUUID:cluther.damsel.gostatsd-01 name:cluther.damsel.gostatsd-01 meta_type:com.atlassian.gostatsd
+      - GSD_DEFAULT_TAGS=tenant:${ZENOSS_TENANT:?err} source-type:statsd source:app-examples.gostatsd
+      - GSD_INTERNAL_TAGS=contextUUID:app-examples.gostatsd name:app-examples.gostatsd meta_type:com.atlassian.gostatsd
       - ZENOSS_ADDRESS=api.zing.soy:443
       - ZENOSS_API_KEY
-      - ZENOSS_METRIC_DIMENSION_TAGS=source plugin contextUUID
-      - ZENOSS_METRIC_METADATA_TAGS=tenant source-type
-      - ZENOSS_MODEL_DIMENSION_TAGS=source plugin contextUUID
-      - ZENOSS_MODEL_METADATA_TAGS=tenant source-type name meta_type
+      - ZENOSS_METRIC_DIMENSION_TAGS=contextUUID
+      - ZENOSS_METRIC_METADATA_TAGS=tenant source-type source
+      - ZENOSS_MODEL_DIMENSION_TAGS=contextUUID
+      - ZENOSS_MODEL_METADATA_TAGS=tenant source-type source name meta_type
     ports:
       - "8125:1825/udp"
 
   python-metrology:
     build: ./python-metrology
-    image: zenoss/python-metrology:latest
     environment:
       - STATSD_HOST=gostatsd
-      - STATSD_PORT=8125
       - STATSD_INTERVAL=10
     ports:
       - "5000:5000"
