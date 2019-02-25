@@ -15,8 +15,6 @@ services:
       - ZENOSS_METRIC_METADATA_TAGS=tenant source-type
       - ZENOSS_MODEL_DIMENSION_TAGS=contextUUID plugin source meta_type
       - ZENOSS_MODEL_METADATA_TAGS=tenant source-type name meta_type
-    ports:
-      - "8125:8125/udp"
 
   requester:
     build: ./requester
