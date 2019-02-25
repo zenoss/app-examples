@@ -1,0 +1,23 @@
+#!/bin/sh
+if ! which parallel >/dev/null
+then
+    echo "parallel must be installed"
+    exit 1
+fi
+
+if ! which ab >/dev/null
+then
+    echo "ab (apache2-utils) must be installed"
+    exit 1
+fi
+
+if [ -z "$*" ]; then
+    echo "URLs must be provided as arguments"
+    exit 1
+fi
+
+while [ 1 ]; do
+    echo "sending requests: $*"
+    parallel ab http://{}:5000/ ::: $* >/dev/null
+    sleep 2
+done
