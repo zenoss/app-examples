@@ -22,6 +22,7 @@ services:
       - python-statsd
       - python-metrology
       - python-relationship
+      - go-metrics
 
   python-statsd:
     build: ./python-statsd
@@ -39,3 +40,8 @@ services:
     environment:
       - STATSD_HOST=gostatsd
       - RELATIONSHIP_SINK_TAGS=app-examples.gostatsd
+
+  go-metrics:
+    build: ./go-metrics
+    environment:
+      - STATSD_HOST=gostatsd
