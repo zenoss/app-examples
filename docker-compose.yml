@@ -23,6 +23,7 @@ services:
       - python-metrology
       - python-relationship
       - go-metrics
+      - dotnet-statsd
 
   python-statsd:
     build: ./python-statsd
@@ -43,5 +44,10 @@ services:
 
   go-metrics:
     build: ./go-metrics
+    environment:
+      - STATSD_HOST=gostatsd
+
+  dotnet-statsd:
+    build: ./dotnet-statsd
     environment:
       - STATSD_HOST=gostatsd
