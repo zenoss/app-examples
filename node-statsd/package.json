@@ -1,0 +1,30 @@
+{
+  "name": "node-statsd",
+  "version": "1.0.0",
+  "description": "Example of sending metrics using the hot-shots statsd client library",
+  "main": "node_statsd.js",
+  "author": "Josh Wilmes <jwilmes@zenoss.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenoss/app-examples.git"
+  },
+  "dependencies": {
+    "hot-shots": ">=6.1.1",
+    "express": ">=4.16.4"
+  },
+  "scripts": {
+    "lint": "eslint  .",
+    "start": "node node_statsd.js"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config": "^0.3.0"
+  },
+  "eslintConfig": {
+    "env": {
+        "node": true
+    }
+  },
+  "eslintIgnore": ["node_modules/", "prod_node_modules/"]  
+}
