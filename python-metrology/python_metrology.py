@@ -20,7 +20,6 @@ def join_tags(tags):
 # Define the key:value tags we want to send with all metrics.
 METRIC_TAGS = join_tags({
     "contextUUID": "example.python.metrology",
-    "meta_type": "com.example.python.metrology",
     "name": "Python Metrology Example",
 })
 

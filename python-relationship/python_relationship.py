@@ -15,7 +15,6 @@ STATSD_PORT = os.environ.get("STATSD_PORT", 8125)
 # Define the key:value tags we want to send with all metrics.
 METRIC_TAGS = {
     "contextUUID": "example.python.relationship",
-    "meta_type": "com.example.python.relationship",
     "name": "Python Relationship Example",
 }
 

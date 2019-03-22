@@ -1,33 +1,38 @@
 version: '3'
 services:
   gostatsd:
-    image: gcr.io/zing-registry-188222/zenoss/gostatsd:5d3ab2f9
+    image: gcr.io/zing-registry-188222/zenoss/gostatsd:b76966fc
     environment:
       - GSD_VERBOSE=1
       - GSD_BACKENDS=zenoss
       - GSD_FLUSH_INTERVAL=10s
       - GSD_MAX_WORKERS=1
-      - GSD_DEFAULT_TAGS=tenant:${ZENOSS_TENANT:?err} source-type:statsd source:app-examples.gostatsd plugin:com.atlassian.gostatsd
-      - GSD_INTERNAL_TAGS=contextUUID:app-examples.gostatsd name:app-examples.gostatsd meta_type:com.atlassian.gostatsd simpleCustomRelationshipSourceTag.0:app-examples.gostatsd
-      - ZENOSS_ADDRESS=api.zing.soy:443
+      - GSD_DEFAULT_TAGS=source-type:com.atlassian.gostatsd source:com.zenoss.app-examples.gostatsd.docker
+      - GSD_INTERNAL_TAGS=contextUUID:com.zenoss.app-examples.gostatsd.docker name:gostatsd.app-examples simpleCustomRelationshipSourceTag.0:com.zenoss.app-examples.gostatsd.docker
+      - ZENOSS_ADDRESS=${ZENOSS_ADDRESS:?err}
       - ZENOSS_API_KEY=${ZENOSS_API_KEY:?err}
-      - ZENOSS_METRIC_DIMENSION_TAGS=contextUUID plugin source
-      - ZENOSS_METRIC_METADATA_TAGS=tenant source-type
-      - ZENOSS_MODEL_DIMENSION_TAGS=contextUUID plugin source meta_type
-      - ZENOSS_MODEL_METADATA_TAGS=tenant source-type name meta_type simpleCustomRelationshipSourceTag simpleCustomRelationshipSinkTag
+      - ZENOSS_METRIC_DIMENSION_TAGS=source contextUUID
+      - ZENOSS_METRIC_METADATA_TAGS=source-type
+      - ZENOSS_MODEL_DIMENSION_TAGS=source contextUUID
+      - ZENOSS_MODEL_METADATA_TAGS=source-type name simpleCustomRelationshipSourceTag simpleCustomRelationshipSinkTag
 
   requester:
     build: ./requester
     command:
-      - python-statsd
+      - dotnet-statsd
+      - go-metrics
+      - node-statsd
       - python-metrology
       - python-relationship
-      - go-metrics
-      - dotnet-statsd
-      - node-statsd
+      - python-statsd
 
-  python-statsd:
-    build: ./python-statsd
+  dotnet-statsd:
+    build: ./dotnet-statsd
+    environment:
+      - STATSD_HOST=gostatsd
+
+  go-metrics:
+    build: ./go-metrics
     environment:
       - STATSD_HOST=gostatsd
 
@@ -41,15 +46,10 @@ services:
     build: ./python-relationship
     environment:
       - STATSD_HOST=gostatsd
-      - RELATIONSHIP_SINK_TAGS=app-examples.gostatsd
+      - RELATIONSHIP_SINK_TAGS=com.zenoss.app-examples.gostatsd.docker
 
-  go-metrics:
-    build: ./go-metrics
-    environment:
-      - STATSD_HOST=gostatsd
-
-  dotnet-statsd:
-    build: ./dotnet-statsd
+  python-statsd:
+    build: ./python-statsd
     environment:
       - STATSD_HOST=gostatsd
 

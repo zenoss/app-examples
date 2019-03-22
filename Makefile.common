@@ -1,0 +1,19 @@
+APP := $(shell basename $(dir $(realpath $(firstword $(MAKEFILE_LIST)))))
+
+IMAGE_REPOSITORY := gcr.io/zing-registry-188222
+IMAGE_PREFIX := zenoss/app-examples
+
+.PHONY: default
+default:
+
+.PHONY: build-image
+build-image: .make.build-image
+
+.make.build-image: $(wildcard *)
+	@docker build -t $(IMAGE_REPOSITORY)/$(IMAGE_PREFIX)/$(APP) . && touch $@
+
+.PHONY: push-image
+push-image: .make.push-image
+
+.make.push-image: .make.build-image
+	@docker push $(IMAGE_REPOSITORY)/$(IMAGE_PREFIX)/$(APP) && touch $@
