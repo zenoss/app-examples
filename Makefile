@@ -1,4 +1,4 @@
-APPS := dotnet-statsd go-metrics node-statsd python-metrology python-relationship python-statsd
+APPS := dotnet-statsd java-metrics go-metrics node-statsd python-metrology python-relationship python-statsd
 
 .PHONY: default
 default:

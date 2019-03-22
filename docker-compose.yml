@@ -21,6 +21,7 @@ services:
     command:
       - dotnet-statsd
       - go-metrics
+      - java-metrics
       - node-statsd
       - python-metrology
       - python-relationship
@@ -55,5 +56,10 @@ services:
 
   node-statsd:
     build: ./node-statsd
+    environment:
+      - STATSD_HOST=gostatsd
+
+  java-metrics:
+    build: ./java-metrics
     environment:
       - STATSD_HOST=gostatsd

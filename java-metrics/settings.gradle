@@ -1,0 +1,8 @@
+
+rootProject.name = 'javametrics'
+
+sourceControl {
+    gitRepository("https://github.com/zenoss/metrics-statsd") {
+        producesModule("com.readytalk:metrics3-statsd")
+    }
+}
