@@ -2,4 +2,4 @@
 .make.*
 
 # kubernetes.yml is generated from kubernetes.yml.in.
-kubernetes.yml
+/kubernetes.yml

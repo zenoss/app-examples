@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-statsd
+  labels:
+    app: dotnet-statsd
+spec:
+  selector:
+    app: dotnet-statsd
+  type: ClusterIP
+  ports:
+  - port: 5000
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dotnet-statsd
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dotnet-statsd
+    spec:
+      containers:
+      - name: dotnet-statsd
+        image: gcr.io/zing-registry-188222/zenoss/app-examples/dotnet-statsd:latest
+        command: [dotnet, dotnet-statsd.dll]
+        env:
+        - name: STATSD_HOST
+          value: gostatsd
