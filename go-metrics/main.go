@@ -16,7 +16,6 @@ import (
 // Define the tags we want to send with all metrics.
 var metricTags = map[string]string{
 	"contextUUID": "example.go.metrics",
-	"meta_type":   "com.example.go.metrics",
 	"name":        "Go Metrics Example",
 }
 

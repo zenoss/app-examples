@@ -13,5 +13,4 @@ server:
 
 statsDMetricTags:
   contextUUID: example.java.metrics
-  meta_type: com.example.java.metrics
   name: Java Metrics Example
