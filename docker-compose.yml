@@ -1,7 +1,7 @@
 version: '3'
 services:
   gostatsd:
-    image: gcr.io/zing-registry-188222/zenoss/gostatsd:b76966fc
+    image: gcr.io/zing-registry-188222/zenoss/gostatsd:dbd0da5a
     environment:
       - GSD_VERBOSE=1
       - GSD_BACKENDS=zenoss

@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: gostatsd
-        image: gcr.io/zing-registry-188222/zenoss/gostatsd:b76966fc
+        image: gcr.io/zing-registry-188222/zenoss/gostatsd:dbd0da5a
         env:
         - name: GSD_VERBOSE
           value: "1"
