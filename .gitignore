@@ -1,3 +1,5 @@
+*.egg-info
+
 # Don't commit empty make targets.
 .make.*
 
