@@ -15,7 +15,7 @@ STATSD_PORT = os.environ.get("STATSD_PORT", 8125)
 
 # Define the key:value tags we want to send with all metrics.
 METRIC_TAGS = {
-    "contextUUID": "example.python.relationship",
+    "app": "example.python.relationship",
     "name": "Python Relationship Example",
 }
 
@@ -54,13 +54,15 @@ def get_kubernetes_relationship_tags():
     container = os.environ.get("KUBERNETES_CONTAINER", "")
 
     if cluster and namespace and pod:
+        pod_tag = "k8s.cluster={},k8s.namespace={},k8s.pod={}".format(
+            cluster, namespace, pod)
+
         # Create a relationship to the associated pod.
-        yield "kubernetesPod.{}.{}.{}".format(cluster, namespace, pod)
+        yield pod_tag
 
         if container:
             # Create a relationship to the associated container.
-            yield "kubernetesContainer.{}.{}.{}.{}".format(
-                cluster, namespace, pod, container)
+            yield "{},k8s.container={}".format(pod_tag, container)
 
 
 def set_relationship_tags(tags):

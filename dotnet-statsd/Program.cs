@@ -15,7 +15,7 @@ namespace dotnet_statsd
     static class Metrics
     {
         private static Dictionary<string, string> MetricTags = new Dictionary<string, string>() {
-            ["contextUUID"] = "example.dotnet.statsd",
+            ["app"] = "example.dotnet.statsd",
             ["name"] = ".NET StatsD Example",
         };
 

@@ -15,6 +15,12 @@ to which the example apps will publish their data.
 
     export ZENOSS_ADDRESS="api.zenoss.io:443"
     export ZENOSS_API_KEY="YOUR-API-KEY-HERE"
+    export NAMESPACE="UNIQUE-VALUE-HERE"
+
+Setting _NAMESPACE_ allows your example data to be different than others who
+may be sending data from these examples to the same Zenoss tenant. A single
+lowercase word should be used. For example, my email address within my
+organization starts with "cluther", so I might set _NAMESPACE_ to "cluther".
 
 ### docker-compose
 

@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: gostatsd
-        image: gcr.io/zing-registry-188222/zenoss/gostatsd:dbd0da5a
+        image: zenoss/gostatsd:1.0.0
         env:
         - name: GSD_VERBOSE
           value: "1"
@@ -43,19 +43,19 @@ spec:
         - name: GSD_FLUSH_INTERVAL
           value: "10s"
         - name: GSD_DEFAULT_TAGS
-          value: "source-type:com.atlassian.gostatsd source:com.zenoss.app-examples.gostatsd.kubernetes"
+          value: "source-type:statsd source:${NAMESPACE}.app-examples"
         - name: GSD_INTERNAL_TAGS
-          value: "contextUUID:com.zenoss.app-examples.gostatsd.kubernetes name:gostatsd.app-examples simpleCustomRelationshipSourceTag.0:com.zenoss.app-examples.gostatsd.kubernetes"
+          value: "app:${NAMESPACE}.app-examples.statsd name:${NAMESPACE}.app-examples.statsd simpleCustomRelationshipSourceTag.0:${NAMESPACE}.app-examples.statsd"
         - name: ZENOSS_ADDRESS
           value: "${ZENOSS_ADDRESS}"
         - name: ZENOSS_API_KEY
           value: "${ZENOSS_API_KEY}"
         - name: ZENOSS_METRIC_DIMENSION_TAGS
-          value: "source contextUUID"
+          value: "source app"
         - name: ZENOSS_METRIC_METADATA_TAGS 
           value: "source-type"
         - name: ZENOSS_MODEL_DIMENSION_TAGS
-          value: "source contextUUID"
+          value: "source app"
         - name: ZENOSS_MODEL_METADATA_TAGS
           value: "source-type name simpleCustomRelationshipSourceTag simpleCustomRelationshipSinkTag"
 ---
