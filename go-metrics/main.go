@@ -15,8 +15,8 @@ import (
 
 // Define the tags we want to send with all metrics.
 var metricTags = map[string]string{
-	"contextUUID": "example.go.metrics",
-	"name":        "Go Metrics Example",
+	"app":  "example.go.metrics",
+	"name": "Go Metrics Example",
 }
 
 func main() {

@@ -1,19 +1,19 @@
 version: '3'
 services:
   gostatsd:
-    image: gcr.io/zing-registry-188222/zenoss/gostatsd:dbd0da5a
+    image: zenoss/gostatsd:1.0.0
     environment:
       - GSD_VERBOSE=1
       - GSD_BACKENDS=zenoss
       - GSD_FLUSH_INTERVAL=10s
       - GSD_MAX_WORKERS=1
-      - GSD_DEFAULT_TAGS=source-type:com.atlassian.gostatsd source:com.zenoss.app-examples.gostatsd.docker
-      - GSD_INTERNAL_TAGS=contextUUID:com.zenoss.app-examples.gostatsd.docker name:gostatsd.app-examples simpleCustomRelationshipSourceTag.0:com.zenoss.app-examples.gostatsd.docker
+      - GSD_DEFAULT_TAGS=source-type:statsd source:${NAMESPACE:?err}.app-examples
+      - GSD_INTERNAL_TAGS=app:${NAMESPACE:?err}.app-examples.statsd name:${NAMESPACE:?err}.app-examples.statsd simpleCustomRelationshipSourceTag.0:${NAMESPACE:?err}.app-examples.statsd
       - ZENOSS_ADDRESS=${ZENOSS_ADDRESS:?err}
       - ZENOSS_API_KEY=${ZENOSS_API_KEY:?err}
-      - ZENOSS_METRIC_DIMENSION_TAGS=source contextUUID
+      - ZENOSS_METRIC_DIMENSION_TAGS=source app
       - ZENOSS_METRIC_METADATA_TAGS=source-type
-      - ZENOSS_MODEL_DIMENSION_TAGS=source contextUUID
+      - ZENOSS_MODEL_DIMENSION_TAGS=source app
       - ZENOSS_MODEL_METADATA_TAGS=source-type name simpleCustomRelationshipSourceTag simpleCustomRelationshipSinkTag
 
   requester:
@@ -47,7 +47,7 @@ services:
     build: ./python-relationship
     environment:
       - STATSD_HOST=gostatsd
-      - RELATIONSHIP_SINK_TAGS=com.zenoss.app-examples.gostatsd.docker
+      - RELATIONSHIP_SINK_TAGS=${NAMESPACE:?err}.app-examples.statsd
 
   python-statsd:
     build: ./python-statsd

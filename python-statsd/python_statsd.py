@@ -14,7 +14,7 @@ STATSD_PORT = os.environ.get("STATSD_PORT", 8125)
 
 # Define the key:value tags we want to send with all metrics.
 METRIC_TAGS = {
-    "contextUUID": "example.python.statsd",
+    "app": "example.python.statsd",
     "name": "Python StatsD Example",
 }
 

@@ -10,7 +10,7 @@ var STATSD_PORT = process.env.STATSD_PORT || 8125
 
 // Define the key:value tags we want to send with all metrics.
 var METRIC_TAGS = {
-    "contextUUID": "example.node.statsd",
+    "app": "example.node.statsd",
     "name": "NodeJS StatsD Example",
 }
 

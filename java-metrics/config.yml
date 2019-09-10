@@ -12,5 +12,5 @@ server:
     port: 5001
 
 statsDMetricTags:
-  contextUUID: example.java.metrics
+  app: example.java.metrics
   name: Java Metrics Example
